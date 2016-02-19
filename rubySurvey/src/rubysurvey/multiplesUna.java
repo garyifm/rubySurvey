@@ -7,14 +7,14 @@ package rubysurvey;
 
 /**
  *
- * @author Gary
+ * @author USER1
  */
-public class crearEncuesta extends javax.swing.JFrame {
+public class multiplesUna extends javax.swing.JFrame {
 
     /**
-     * Creates new form crearEncuesta
+     * Creates new form multiplesUna
      */
-    public crearEncuesta() {
+    public multiplesUna() {
         initComponents();
     }
 
@@ -60,20 +60,20 @@ public class crearEncuesta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(crearEncuesta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(multiplesUna.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(crearEncuesta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(multiplesUna.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(crearEncuesta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(multiplesUna.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(crearEncuesta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(multiplesUna.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new crearEncuesta().setVisible(true);
+                new multiplesUna().setVisible(true);
             }
         });
     }
