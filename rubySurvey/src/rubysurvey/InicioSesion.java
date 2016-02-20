@@ -9,12 +9,12 @@ package rubysurvey;
  *
  * @author USER1
  */
-public class Registrarse extends javax.swing.JFrame {
+public class InicioSesion extends javax.swing.JFrame {
 
     /**
-     * Creates new form Registrarse
+     * Creates new form lobby
      */
-    public Registrarse() {
+    public InicioSesion() {
         initComponents();
     }
 
@@ -49,7 +49,7 @@ public class Registrarse extends javax.swing.JFrame {
         jPasswordField1.setText("jPasswordField1");
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel3.setText("Registrarse");
+        jLabel3.setText("Inciar Sesión");
 
         jButton1.setText("Aceptar");
 
@@ -57,10 +57,6 @@ public class Registrarse extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(40, 40, 40))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -75,7 +71,11 @@ public class Registrarse extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(186, 186, 186)
                         .addComponent(jLabel3)))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,9 +90,9 @@ public class Registrarse extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addComponent(jButton1)
-                .addGap(42, 42, 42))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,20 +119,21 @@ public class Registrarse extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Registrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Registrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Registrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Registrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Registrarse().setVisible(true);
+                new InicioSesion().setVisible(true);
             }
         });
     }
