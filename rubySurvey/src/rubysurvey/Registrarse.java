@@ -5,6 +5,10 @@
  */
 package rubysurvey;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 /**
  *
  * @author USER1
@@ -52,6 +56,11 @@ public class Registrarse extends javax.swing.JFrame {
         jLabel3.setText("Registrarse");
 
         jButton1.setText("Aceptar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,6 +110,25 @@ public class Registrarse extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "INSERT INTO UsuarioEncuesta(Usuario,Password) VALUES (?,?)";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                psmt.setString(1, jTextField1.getText());
+                psmt.setString(2, jPasswordField1.getText());
+                
+                
+                psmt.execute();
+                System.out.println("sql success");
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

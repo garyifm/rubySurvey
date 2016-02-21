@@ -5,6 +5,11 @@
  */
 package rubysurvey;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author USER1
@@ -14,6 +19,8 @@ public class InicioSesion extends javax.swing.JFrame {
     /**
      * Creates new form lobby
      */
+    ResultSet rs =null;
+    boolean correctPass = false;
     public InicioSesion() {
         initComponents();
     }
@@ -52,6 +59,11 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel3.setText("Inciar Sesión");
 
         jButton1.setText("Aceptar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,6 +113,36 @@ public class InicioSesion extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+            
+                String temp = jTextField1.getText();
+                Connection con = Conection.getConexion();
+                String query = "SELECT Password FROM UsuarioEncuesta where Usuario='"+temp+"' ";
+                PreparedStatement psmt = con.prepareStatement(query);
+                rs = psmt.executeQuery();
+                
+                
+                
+                if(rs.next())
+                {
+                    String val = rs.getString("Password");
+                    System.out.println(val);
+                    if(val.equals(jPasswordField1.getText()))
+                    {
+                        correctPass = true;
+                        System.out.println("sql success");
+                        System.out.println(correctPass);
+                    }
+                    
+                }
+                
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
