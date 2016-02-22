@@ -43,10 +43,16 @@ public class PreguntasSiNo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 204, 0));
         jLabel1.setText("Creación preguntas Si/No");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 51, 204));
         jLabel2.setText("Escribe tu pregunta:");
 
+        guardarPregunta.setBackground(new java.awt.Color(0, 51, 102));
+        guardarPregunta.setForeground(new java.awt.Color(255, 255, 255));
         guardarPregunta.setText("Guardar pregunta");
         guardarPregunta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,6 +60,8 @@ public class PreguntasSiNo extends javax.swing.JFrame {
             }
         });
 
+        finalizar.setBackground(new java.awt.Color(0, 51, 102));
+        finalizar.setForeground(new java.awt.Color(255, 255, 255));
         finalizar.setText("Finalizar");
         finalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,6 +69,8 @@ public class PreguntasSiNo extends javax.swing.JFrame {
             }
         });
 
+        nuevaPregunta.setBackground(new java.awt.Color(0, 51, 102));
+        nuevaPregunta.setForeground(new java.awt.Color(255, 255, 255));
         nuevaPregunta.setText("Nueva pregunta");
         nuevaPregunta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,18 +90,18 @@ public class PreguntasSiNo extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(132, 132, 132))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(nuevaPregunta)
                         .addGap(47, 47, 47)
                         .addComponent(finalizar)
-                        .addGap(58, 58, 58))))
+                        .addGap(58, 58, 58))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(109, 109, 109))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +114,7 @@ public class PreguntasSiNo extends javax.swing.JFrame {
                     .addComponent(textPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(guardarPregunta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(finalizar)
                     .addComponent(nuevaPregunta))

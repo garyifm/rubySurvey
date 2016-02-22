@@ -48,8 +48,12 @@ public class preguntasAbiertas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 204, 0));
         jLabel1.setText("Creación preguntas abiertas");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 102, 204));
         jLabel2.setText("Escribe tu pregunta: ");
 
         textPregunta.addActionListener(new java.awt.event.ActionListener() {
@@ -58,8 +62,12 @@ public class preguntasAbiertas extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Ahora puedes escojer entre las siguiente opciones: ");
 
+        jButton1.setBackground(new java.awt.Color(0, 51, 102));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Nueva pregunta ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,6 +75,8 @@ public class preguntasAbiertas extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(0, 51, 102));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Finalizar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,6 +84,8 @@ public class preguntasAbiertas extends javax.swing.JFrame {
             }
         });
 
+        guardarPregunta.setBackground(new java.awt.Color(0, 51, 102));
+        guardarPregunta.setForeground(new java.awt.Color(255, 255, 255));
         guardarPregunta.setText("Guardar pregunta");
         guardarPregunta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,7 +115,7 @@ public class preguntasAbiertas extends javax.swing.JFrame {
                                 .addGap(30, 30, 30)
                                 .addComponent(jButton2))
                             .addComponent(guardarPregunta))))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +128,7 @@ public class preguntasAbiertas extends javax.swing.JFrame {
                     .addComponent(textPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(guardarPregunta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

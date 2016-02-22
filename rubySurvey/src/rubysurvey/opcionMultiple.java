@@ -56,6 +56,7 @@ public class opcionMultiple extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jRadioButton1.setForeground(new java.awt.Color(0, 51, 204));
         jRadioButton1.setText("respuesta1");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,10 +64,14 @@ public class opcionMultiple extends javax.swing.JFrame {
             }
         });
 
+        jRadioButton2.setForeground(new java.awt.Color(0, 51, 204));
         jRadioButton2.setText("respuesta2");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 51, 204));
         jLabel2.setText("Escribe la pregunta en el siguiente recuadro:");
 
+        jRadioButton3.setForeground(new java.awt.Color(0, 51, 204));
         jRadioButton3.setText("respuesta3");
         jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,8 +79,11 @@ public class opcionMultiple extends javax.swing.JFrame {
             }
         });
 
+        jRadioButton4.setForeground(new java.awt.Color(0, 51, 204));
         jRadioButton4.setText("respuesta4");
 
+        jButton1.setBackground(new java.awt.Color(0, 51, 102));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Finalizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +91,8 @@ public class opcionMultiple extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(0, 51, 102));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Crear Nueva Pregunta");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,8 +100,11 @@ public class opcionMultiple extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(0, 51, 204));
         jLabel4.setText("Escribe las posibles respuestas par la pregunta, no es necesario utlizar los 4 recuadros");
 
+        guardarPregunta.setBackground(new java.awt.Color(0, 51, 102));
+        guardarPregunta.setForeground(new java.awt.Color(255, 255, 255));
         guardarPregunta.setText("Guardar pregunta");
         guardarPregunta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,6 +112,8 @@ public class opcionMultiple extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 204, 0));
         jLabel3.setText("Creación preguntas de opción multiple");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,7 +156,7 @@ public class opcionMultiple extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(textPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
+                        .addGap(166, 166, 166)
                         .addComponent(jLabel3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -177,7 +192,7 @@ public class opcionMultiple extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jRadioButton4)
                     .addComponent(textResp4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))

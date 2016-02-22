@@ -43,8 +43,12 @@ public class CreacionEncuesta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 204, 0));
         jLabel1.setText("Especificaciones de encuesta");
 
+        jButton1.setBackground(new java.awt.Color(0, 51, 204));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Crear encuesta");
         jButton1.setToolTipText("");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -53,6 +57,8 @@ public class CreacionEncuesta extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 102, 204));
         jLabel2.setText("Nombre de la encuesta:");
 
         nomEncuesta_txt.addActionListener(new java.awt.event.ActionListener() {
@@ -61,6 +67,8 @@ public class CreacionEncuesta extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Clave de Encuesta:");
 
         clave_txt.addActionListener(new java.awt.event.ActionListener() {
@@ -76,9 +84,6 @@ public class CreacionEncuesta extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -90,7 +95,11 @@ public class CreacionEncuesta extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(180, 180, 180)
                         .addComponent(jButton1)))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 88, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
