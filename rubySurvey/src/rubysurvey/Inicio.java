@@ -5,6 +5,12 @@
  */
 package rubysurvey;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 /**
  *
  * @author USER1
@@ -14,6 +20,11 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
+    
+    public static int idEncuesta;
+    public static ArrayList<Integer> lista = new ArrayList<>();
+    public static ArrayList<String> pregunta = new ArrayList<>();
+    public static ArrayList<String> resMultiple = new ArrayList<>();
     public Inicio() {
         initComponents();
     }
@@ -150,9 +161,114 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        ContestasEncuesta newFrame= new ContestasEncuesta();
-        newFrame.setVisible(true);
-        this.dispose();
+        
+        String claveTemp = jTextField1.getText();
+        
+        try{
+            
+                
+                Connection con = Conection.getConexion();
+                String query = "SELECT idEncuesta FROM Encuesta where clave='"+claveTemp+"' ";
+                PreparedStatement psmt = con.prepareStatement(query);
+                ResultSet rs;
+                rs = psmt.executeQuery();
+                
+                
+                
+                if(rs.next())
+                {
+                    int val = rs.getInt("idEncuesta");
+                    idEncuesta = val;
+                }
+                
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        try{
+            
+                // se obtiene el id del tipo de pregunta para elegir siguiente pantalla
+                Connection con = Conection.getConexion();
+                String query = "SELECT * FROM Preguntas where fkEncuesta='"+idEncuesta+"' ";
+                PreparedStatement psmt = con.prepareStatement(query);
+                ResultSet rs;
+                rs = psmt.executeQuery();
+                
+                
+                
+                while(rs.next())
+                {
+                    int val = rs.getInt("idTipo");
+                    lista.add(val);
+                    pregunta.add(rs.getString("Tipo"));
+                }
+                
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        
+        
+        if(lista.get(0) == 1)
+        {
+            RespuestaAbiertas newFrame= new RespuestaAbiertas();
+            newFrame.setVisible(true);
+            this.dispose();
+            RespuestaAbiertas.lista = lista;
+            RespuestaAbiertas.screenCount = RespuestaAbiertas.screenCount +1; 
+            System.out.println(pregunta.get(0));
+            RespuestaAbiertas.jLabel2.setText(pregunta.get(0));
+        }
+        else if(lista.get(0) == 2)
+        {
+            RespuestaAbiertas newFrame= new RespuestaAbiertas();
+            newFrame.setVisible(true);
+            this.dispose();
+            RespuestaSiNo.lista = lista;
+            RespuestaSiNo.screenCount = RespuestaSiNo.screenCount +1; 
+            RespuestaSiNo.preguntaP.setText(pregunta.get(0));
+        }
+        else if(lista.get(0) == 3)
+        {
+            
+            RespuestaopcionMultiple newFrame= new RespuestaopcionMultiple();
+            newFrame.setVisible(true);
+            this.dispose();
+            RespuestaopcionMultiple.lista = lista;
+            RespuestaopcionMultiple.screenCount = RespuestaopcionMultiple.screenCount +1; 
+            RespuestaopcionMultiple.jLabel4.setText(pregunta.get(0));
+            
+            
+            try{
+            
+                // se obtiene el id del tipo de pregunta para elegir siguiente pantalla
+                Connection con = Conection.getConexion();
+                String query = "SELECT idPreguntas FROM Preguntas where fkEncuesta='"+idEncuesta+"' ";
+                PreparedStatement psmt = con.prepareStatement(query);
+                ResultSet rs;
+                rs = psmt.executeQuery();
+                
+                
+                
+                while(rs.next())
+                {
+                    int val = rs.getInt("idPreguntas");
+                    String temps = Integer.toString(val);
+                    resMultiple.add(temps);
+                }
+                
+            } catch (SQLException ex){
+                System.out.println(ex.getMessage());
+            }
+            
+            RespuestaopcionMultiple.res1.setText(resMultiple.get(0));
+            RespuestaopcionMultiple.res2.setText(resMultiple.get(1));
+            RespuestaopcionMultiple.res3.setText(resMultiple.get(2));
+            RespuestaopcionMultiple.res4.setText(resMultiple.get(3));
+            
+            
+        }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

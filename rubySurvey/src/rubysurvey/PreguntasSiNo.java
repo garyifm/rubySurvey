@@ -7,7 +7,10 @@ package rubysurvey;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import static rubysurvey.opcionMultiple.idEncuesta;
+import static rubysurvey.opcionMultiple.idPreguntas;
 
 /**
  *
@@ -21,6 +24,7 @@ public class PreguntasSiNo extends javax.swing.JFrame {
     public static int idUsuarioEncuesta;
     public static String nombreEncuesta;
     public static int idEncuesta;
+    public static int idPregunta;
     public PreguntasSiNo() {
         initComponents();
     }
@@ -149,6 +153,65 @@ public class PreguntasSiNo extends javax.swing.JFrame {
         } catch (SQLException ex){
             System.out.println(ex.getMessage());
         }
+        
+        
+        try{
+            
+                
+                Connection con = Conection.getConexion();
+                String temp = textPregunta.getText();
+                String query = "SELECT idPreguntas FROM Preguntas where Tipo='"+temp+"' ";
+                PreparedStatement psmt = con.prepareStatement(query);
+                ResultSet rs;
+                rs = psmt.executeQuery();
+                
+                
+                
+                if(rs.next())
+                {
+                    int val = rs.getInt("idPreguntas");
+                    idPregunta = val;
+                    System.out.println("sql, se obtuvo idPreguntas");
+                }
+                
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "INSERT INTO RespuestaOpcion(TextoRespuesta,fkPreguntas,fkEncuesta) VALUES (?,?,?)";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                psmt.setString(1, "si");
+                psmt.setInt(2, idPregunta);
+                psmt.setInt(3, idEncuesta);
+                
+                
+                psmt.execute();
+                System.out.println("sql se inserto respuesta");
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "INSERT INTO RespuestaOpcion(TextoRespuesta,fkPreguntas,fkEncuesta) VALUES (?,?,?)";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                psmt.setString(1, "no");
+                psmt.setInt(2, idPregunta);
+                psmt.setInt(3, idEncuesta);
+                
+                
+                psmt.execute();
+                System.out.println("sql se inserto respuesta");
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
     }//GEN-LAST:event_guardarPreguntaActionPerformed
 
     private void finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarActionPerformed
