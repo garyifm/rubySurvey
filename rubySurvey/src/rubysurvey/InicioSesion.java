@@ -24,6 +24,7 @@ public class InicioSesion extends javax.swing.JFrame {
     String pass="";
     ResultSet rs =null; // almacena el resultado de la consulta a bd
     boolean correctPass = false; // para saber si se introdujo la contraseña correcta
+    int idUsuarioEncuesta;
     public InicioSesion() {
         initComponents();
     }
@@ -130,21 +131,23 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
         try{
             
                 String temp = name.getText();
                 
                 Connection con = Conection.getConexion();
-                String query = "SELECT Password FROM UsuarioEncuesta where Usuario='"+temp+"' ";
+                String query = "SELECT * FROM UsuarioEncuesta where Usuario='"+temp+"' ";
                 PreparedStatement psmt = con.prepareStatement(query);
                 rs = psmt.executeQuery();
                 
                 
                 userName = temp;
+                System.out.println(temp +" nombreUsuario");
                 if(rs.next())
                 {
                     String val = rs.getString("Password");
-                    System.out.println(val);
+                    
                     if(val.equals(jPasswordField1.getText()))
                     {
                         correctPass = true;
@@ -154,6 +157,8 @@ public class InicioSesion extends javax.swing.JFrame {
                         
                     }
                     
+                    int val2 = rs.getInt("idUsuarioEncuesta");
+                    idUsuarioEncuesta = val2;
                 }
                 
                 
@@ -167,8 +172,9 @@ public class InicioSesion extends javax.swing.JFrame {
             newFrame.setVisible(true);
             this.dispose();
                sesionLobby.NombreUsuario.setText(name.getText()); 
-               sesionLobby.userName = this.userName;
-               sesionLobby.pass = this.pass;
+               sesionLobby.userName = userName;
+               sesionLobby.pass = pass;
+               sesionLobby.idUsuarioEncuesta = idUsuarioEncuesta;
         }
         else 
         {
