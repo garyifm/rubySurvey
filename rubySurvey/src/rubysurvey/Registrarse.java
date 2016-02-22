@@ -5,6 +5,10 @@
  */
 package rubysurvey;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 /**
  *
  * @author USER1
@@ -14,6 +18,7 @@ public class Registrarse extends javax.swing.JFrame {
     /**
      * Creates new form Registrarse
      */
+    boolean regPass = false;
     public Registrarse() {
         initComponents();
     }
@@ -107,9 +112,30 @@ public class Registrarse extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        NuevoUsuario newFrame = new NuevoUsuario();
-        newFrame.setVisible(true);
-        this.dispose();
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "INSERT INTO UsuarioEncuesta(Usuario,Password) VALUES (?,?)";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                psmt.setString(1, jTextField1.getText());
+                psmt.setString(2, jPasswordField1.getText());
+                
+                
+                psmt.execute();
+                System.out.println("sql success");
+                regPass = true;
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        if(regPass)
+        {
+            NuevoUsuario newFrame = new NuevoUsuario();
+            newFrame.setVisible(true);
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

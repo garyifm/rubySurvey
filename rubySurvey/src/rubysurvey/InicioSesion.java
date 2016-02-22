@@ -5,6 +5,12 @@
  */
 package rubysurvey;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USER1
@@ -14,6 +20,10 @@ public class InicioSesion extends javax.swing.JFrame {
     /**
      * Creates new form lobby
      */
+    String userName ="";
+    String pass="";
+    ResultSet rs =null; // almacena el resultado de la consulta a bd
+    boolean correctPass = false; // para saber si se introdujo la contraseña correcta
     public InicioSesion() {
         initComponents();
     }
@@ -120,10 +130,51 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        sesionLobby newFrame = new sesionLobby ();
-        newFrame.setVisible(true);
-        this.dispose();
-           sesionLobby.NombreUsuario.setText(name.getText());
+        try{
+            
+                String temp = name.getText();
+                
+                Connection con = Conection.getConexion();
+                String query = "SELECT Password FROM UsuarioEncuesta where Usuario='"+temp+"' ";
+                PreparedStatement psmt = con.prepareStatement(query);
+                rs = psmt.executeQuery();
+                
+                
+                userName = temp;
+                if(rs.next())
+                {
+                    String val = rs.getString("Password");
+                    System.out.println(val);
+                    if(val.equals(jPasswordField1.getText()))
+                    {
+                        correctPass = true;
+                        System.out.println("sql success");
+                        System.out.println(correctPass);
+                        pass = val;
+                        
+                    }
+                    
+                }
+                
+                
+                
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        if(correctPass)
+        {
+            sesionLobby newFrame = new sesionLobby ();
+            newFrame.setVisible(true);
+            this.dispose();
+               sesionLobby.NombreUsuario.setText(name.getText()); 
+               sesionLobby.userName = this.userName;
+               sesionLobby.pass = this.pass;
+        }
+        else 
+        {
+            JOptionPane.showMessageDialog(null, "wrong credentials");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

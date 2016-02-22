@@ -5,6 +5,10 @@
  */
 package rubysurvey;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 /**
  *
  * @author USER1
@@ -14,6 +18,9 @@ public class PreguntasSiNo extends javax.swing.JFrame {
     /**
      * Creates new form PreguntasSiNo
      */
+    public static int idUsuarioEncuesta;
+    public static String nombreEncuesta;
+    public static int idEncuesta;
     public PreguntasSiNo() {
         initComponents();
     }
@@ -29,10 +36,10 @@ public class PreguntasSiNo extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        textPregunta = new javax.swing.JTextField();
+        guardarPregunta = new javax.swing.JButton();
+        finalizar = new javax.swing.JButton();
+        nuevaPregunta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,24 +47,24 @@ public class PreguntasSiNo extends javax.swing.JFrame {
 
         jLabel2.setText("Escribe tu pregunta:");
 
-        jButton1.setText("Guardar pregunta");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        guardarPregunta.setText("Guardar pregunta");
+        guardarPregunta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                guardarPreguntaActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Finalizar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        finalizar.setText("Finalizar");
+        finalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                finalizarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Nueva pregunta");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        nuevaPregunta.setText("Nueva pregunta");
+        nuevaPregunta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                nuevaPreguntaActionPerformed(evt);
             }
         });
 
@@ -68,11 +75,11 @@ public class PreguntasSiNo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(guardarPregunta)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(textPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -81,9 +88,9 @@ public class PreguntasSiNo extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(132, 132, 132))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(nuevaPregunta)
                         .addGap(47, 47, 47)
-                        .addComponent(jButton2)
+                        .addComponent(finalizar)
                         .addGap(58, 58, 58))))
         );
         layout.setVerticalGroup(
@@ -94,36 +101,52 @@ public class PreguntasSiNo extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(guardarPregunta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(finalizar)
+                    .addComponent(nuevaPregunta))
                 .addGap(66, 66, 66))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void nuevaPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaPreguntaActionPerformed
         // TODO add your handling code here:
             PreguntasSiNo newFrame = new PreguntasSiNo();
         newFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_nuevaPreguntaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void guardarPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarPreguntaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "INSERT INTO Preguntas(idTipo,Tipo,fkEncuesta) VALUES (?,?,?)";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                psmt.setInt(1, (int)2);
+                psmt.setString(2, textPregunta.getText());
+                psmt.setInt(3, idEncuesta);
+                
+                
+                psmt.execute();
+                System.out.println("sql se inserto pregunta");
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_guardarPreguntaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarActionPerformed
         // TODO add your handling code here:
          CreacionPreguntas newFrame = new CreacionPreguntas();
         newFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_finalizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,11 +184,11 @@ public class PreguntasSiNo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton finalizar;
+    private javax.swing.JButton guardarPregunta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton nuevaPregunta;
+    private javax.swing.JTextField textPregunta;
     // End of variables declaration//GEN-END:variables
 }

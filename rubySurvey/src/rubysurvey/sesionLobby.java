@@ -5,6 +5,11 @@
  */
 package rubysurvey;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author USER1
@@ -14,6 +19,10 @@ public class sesionLobby extends javax.swing.JFrame {
     /**
      * Creates new form lobby
      */
+    public static String userName;
+    public static String pass;
+    public static int idUsuarioEncuesta;
+    
     public sesionLobby() {
         initComponents();
     }
@@ -53,11 +62,6 @@ public class sesionLobby extends javax.swing.JFrame {
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Uber", "Futbol", "JuegosOlimpicos", "nuevaTecnologia" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jList1);
 
         cmd_consultarResultados.setText("Consultar Resultados");
@@ -111,7 +115,7 @@ public class sesionLobby extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(NombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,9 +134,36 @@ public class sesionLobby extends javax.swing.JFrame {
 
     private void cmd_nuevaEncuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmd_nuevaEncuestaActionPerformed
         // TODO add your handling code here:
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "SELECT idUsuarioEncuesta FROM UsuarioEncuesta where Usuario='"+userName+"' ";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                ResultSet rs;
+                rs = psmt.executeQuery();
+                
+                
+                
+                if(rs.next())
+                {
+                    int val = rs.getInt(idUsuarioEncuesta);
+                    System.out.println(val);
+                    idUsuarioEncuesta = val;
+                    
+                }
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        
         CreacionEncuesta newFrame= new CreacionEncuesta();
         newFrame.setVisible(true);
         this.dispose();
+        CreacionEncuesta.userName = sesionLobby.userName;
+        CreacionEncuesta.pass = sesionLobby.pass;
+        CreacionEncuesta.idUsuarioEncuesta = idUsuarioEncuesta;
+        
     }//GEN-LAST:event_cmd_nuevaEncuestaActionPerformed
 
     private void cmd_consultarResultadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmd_consultarResultadosActionPerformed
@@ -147,6 +178,7 @@ public class sesionLobby extends javax.swing.JFrame {
         Finalizar newFrame= new Finalizar();
         newFrame.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -5,6 +5,10 @@
  */
 package rubysurvey;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 /**
  *
  * @author USER1
@@ -14,6 +18,9 @@ public class CreacionEncuesta extends javax.swing.JFrame {
     /**
      * Creates new form seleccionPreguntas
      */
+    public static String userName;
+    public static String pass;
+    public static int idUsuarioEncuesta;
     public CreacionEncuesta() {
         initComponents();
     }
@@ -30,9 +37,9 @@ public class CreacionEncuesta extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        Nombre = new javax.swing.JTextField();
+        nomEncuesta_txt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        clave_txt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,17 +55,17 @@ public class CreacionEncuesta extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre de la encuesta:");
 
-        Nombre.addActionListener(new java.awt.event.ActionListener() {
+        nomEncuesta_txt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NombreActionPerformed(evt);
+                nomEncuesta_txtActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Descripción de la encuesta:");
+        jLabel3.setText("Clave de Encuesta:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        clave_txt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                clave_txtActionPerformed(evt);
             }
         });
 
@@ -78,12 +85,12 @@ public class CreacionEncuesta extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(jTextField2)))
+                            .addComponent(nomEncuesta_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(clave_txt)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(180, 180, 180)
                         .addComponent(jButton1)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,12 +100,12 @@ public class CreacionEncuesta extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomEncuesta_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                    .addComponent(clave_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(50, 50, 50))
         );
@@ -106,23 +113,41 @@ public class CreacionEncuesta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
+    private void nomEncuesta_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomEncuesta_txtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NombreActionPerformed
+    }//GEN-LAST:event_nomEncuesta_txtActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void clave_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clave_txtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_clave_txtActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "INSERT INTO Encuesta(Nombre,fkUsuarioEncuesta,clave) VALUES (?,?,?)";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                psmt.setString(1, nomEncuesta_txt.getText());
+                psmt.setInt(2,idUsuarioEncuesta);
+                psmt.setString(3, clave_txt.getText());
+                
+                psmt.execute();
+                System.out.println("sql, encuesta insertada");
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
         
         CreacionPreguntas newFrame = new CreacionPreguntas();
         newFrame.setVisible(true);
         this.dispose();
-        CreacionPreguntas.NombreEncuesta.setText(Nombre.getText());
-        
-        
+        CreacionPreguntas.NombreEncuesta.setText(nomEncuesta_txt.getText());
+        CreacionPreguntas.pass = pass;
+        CreacionPreguntas.idUsuarioEncuesta = idUsuarioEncuesta;
+        CreacionPreguntas.userName = userName;
+        CreacionPreguntas.nombreEncuesta = nomEncuesta_txt.getText();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -164,11 +189,11 @@ public class CreacionEncuesta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Nombre;
+    private javax.swing.JTextField clave_txt;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField nomEncuesta_txt;
     // End of variables declaration//GEN-END:variables
 }

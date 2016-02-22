@@ -5,6 +5,11 @@
  */
 package rubysurvey;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author USER1
@@ -14,6 +19,11 @@ public class CreacionPreguntas extends javax.swing.JFrame {
     /**
      * Creates new form CreacionPreguntas
      */
+    public static String userName;
+    public static String pass;
+    public static int idUsuarioEncuesta;
+    public static String nombreEncuesta;
+    public static int idEncuesta;
     public CreacionPreguntas() {
         initComponents();
     }
@@ -33,9 +43,9 @@ public class CreacionPreguntas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        AgregarSIno = new javax.swing.JButton();
+        agregarMultiple = new javax.swing.JButton();
+        agregarAbierta = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -50,7 +60,7 @@ public class CreacionPreguntas extends javax.swing.JFrame {
 
         jLabel1.setText("Especificación de preguntas");
 
-        jLabel2.setText("Escoje el tipo de pregunta para agregar a  la encuesta");
+        jLabel2.setText("Escoge el tipo de pregunta para agregar a  la encuesta");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Abierta");
@@ -61,24 +71,24 @@ public class CreacionPreguntas extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Opción multiple");
 
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        AgregarSIno.setText("Agregar");
+        AgregarSIno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                AgregarSInoActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Agregar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        agregarMultiple.setText("Agregar");
+        agregarMultiple.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                agregarMultipleActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Agregar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        agregarAbierta.setText("Agregar");
+        agregarAbierta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                agregarAbiertaActionPerformed(evt);
             }
         });
 
@@ -151,13 +161,13 @@ public class CreacionPreguntas extends javax.swing.JFrame {
                         .addComponent(jLabel9))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jButton3)
+                        .addComponent(agregarAbierta)
                         .addGap(173, 173, 173)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(AgregarSIno)
                                 .addGap(232, 232, 232)
-                                .addComponent(jButton2))
+                                .addComponent(agregarMultiple))
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(31, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -194,9 +204,9 @@ public class CreacionPreguntas extends javax.swing.JFrame {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
+                    .addComponent(agregarMultiple)
+                    .addComponent(AgregarSIno)
+                    .addComponent(agregarAbierta))
                 .addGap(42, 42, 42)
                 .addComponent(jButton4)
                 .addGap(26, 26, 26))
@@ -205,30 +215,65 @@ public class CreacionPreguntas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
+    public void db()
+    {
+        try{
+            
+                
+                Connection con = Conection.getConexion();
+                String query = "SELECT idEncuesta FROM Encuesta where Nombre='"+nombreEncuesta+"' ";
+                PreparedStatement psmt = con.prepareStatement(query);
+                ResultSet rs;
+                rs = psmt.executeQuery();
+                
+                
+                
+                if(rs.next())
+                {
+                    int val = rs.getInt("idEncuesta");
+                    idEncuesta = val;
+                    
+                }
+                
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    private void AgregarSInoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarSInoActionPerformed
         // TODO add your handling code here:
+        db();
          PreguntasSiNo newFrame = new PreguntasSiNo();
         newFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        PreguntasSiNo.idEncuesta = idEncuesta;
+        PreguntasSiNo.idUsuarioEncuesta = idUsuarioEncuesta;
+    }//GEN-LAST:event_AgregarSInoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void agregarAbiertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarAbiertaActionPerformed
         // TODO add your handling code here:
+        db();
         preguntasAbiertas newFrame= new preguntasAbiertas();
         newFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+        preguntasAbiertas.idEncuesta = idEncuesta;
+        preguntasAbiertas.idUsuarioEncuesta = idUsuarioEncuesta;
+    }//GEN-LAST:event_agregarAbiertaActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void agregarMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarMultipleActionPerformed
         // TODO add your handling code here:
+        db();
         opcionMultiple newFrame= new opcionMultiple();
         newFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        opcionMultiple.idEncuesta = idEncuesta;
+        opcionMultiple.idUsuarioEncuesta = idUsuarioEncuesta;
+    }//GEN-LAST:event_agregarMultipleActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -274,10 +319,10 @@ public class CreacionPreguntas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AgregarSIno;
     public static javax.swing.JLabel NombreEncuesta;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton agregarAbierta;
+    private javax.swing.JButton agregarMultiple;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;

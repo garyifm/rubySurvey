@@ -5,15 +5,26 @@
  */
 package rubysurvey;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import static rubysurvey.PreguntasSiNo.idEncuesta;
+
 /**
  *
  * @author USER1
  */
+
 public class opcionMultiple extends javax.swing.JFrame {
 
     /**
      * Creates new form multiplesDosCuatro
      */
+    public static int idUsuarioEncuesta;
+    public static String nombreEncuesta;
+    public static int idEncuesta;
+    public static int idPreguntas;
     public opcionMultiple() {
         initComponents();
     }
@@ -34,13 +45,13 @@ public class opcionMultiple extends javax.swing.JFrame {
         jRadioButton4 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        textResp1 = new javax.swing.JTextField();
+        textResp2 = new javax.swing.JTextField();
+        textResp3 = new javax.swing.JTextField();
+        textResp4 = new javax.swing.JTextField();
+        textPregunta = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        guardarPregunta = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -81,7 +92,12 @@ public class opcionMultiple extends javax.swing.JFrame {
 
         jLabel4.setText("Escribe las posibles respuestas par la pregunta, no es necesario utlizar los 4 recuadros");
 
-        jButton3.setText("Guardar pregunta");
+        guardarPregunta.setText("Guardar pregunta");
+        guardarPregunta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarPreguntaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Creación preguntas de opción multiple");
 
@@ -102,13 +118,13 @@ public class opcionMultiple extends javax.swing.JFrame {
                                     .addComponent(jRadioButton4))
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField6)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)))
+                                    .addComponent(textResp4)
+                                    .addComponent(textResp2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(textResp3, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jRadioButton1)
                                 .addGap(29, 29, 29)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(textResp1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(371, 371, 371)
                         .addComponent(jButton1)
@@ -117,13 +133,13 @@ public class opcionMultiple extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3)
+                            .addComponent(guardarPregunta)
                             .addComponent(jLabel4)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(195, 195, 195)
                         .addComponent(jLabel3)))
@@ -137,30 +153,30 @@ public class opcionMultiple extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textResp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioButton2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(textResp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(jButton3)))
+                        .addComponent(guardarPregunta)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton3)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textResp3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jRadioButton4)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textResp4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -192,6 +208,123 @@ public class opcionMultiple extends javax.swing.JFrame {
         newFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    
+    public void getPreguntaid()
+    {
+        try{
+            
+                
+                Connection con = Conection.getConexion();
+                String temp = textPregunta.getText();
+                String query = "SELECT idPreguntas FROM Preguntas where Tipo='"+temp+"' ";
+                PreparedStatement psmt = con.prepareStatement(query);
+                ResultSet rs;
+                rs = psmt.executeQuery();
+                
+                
+                
+                if(rs.next())
+                {
+                    int val = rs.getInt("idPreguntas");
+                    idPreguntas = val;
+                    System.out.println("sql, se obtuvo idPreguntas");
+                }
+                
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    private void guardarPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarPreguntaActionPerformed
+        // TODO add your handling code here:
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "INSERT INTO Preguntas(idTipo,Tipo,fkEncuesta) VALUES (?,?,?)";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                psmt.setInt(1, (int)3);
+                psmt.setString(2, textPregunta.getText());
+                psmt.setInt(3, idEncuesta);
+                
+                
+                psmt.execute();
+                System.out.println("sql se inserto pregunta");
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        getPreguntaid();
+        
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "INSERT INTO RespuestaOpcion(TextoRespuesta,fkPreguntas,fkEncuesta) VALUES (?,?,?)";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                psmt.setString(1, textResp1.getText());
+                psmt.setInt(2, idPreguntas);
+                psmt.setInt(3, idEncuesta);
+                
+                
+                psmt.execute();
+                System.out.println("sql se inserto respuesta");
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "INSERT INTO RespuestaOpcion(TextoRespuesta,fkPreguntas,fkEncuesta) VALUES (?,?,?)";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                psmt.setString(1, textResp2.getText());
+                psmt.setInt(2, idPreguntas);
+                psmt.setInt(3, idEncuesta);
+                
+                
+                psmt.execute();
+                System.out.println("sql se inserto respuesta");
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "INSERT INTO RespuestaOpcion(TextoRespuesta,fkPreguntas,fkEncuesta) VALUES (?,?,?)";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                psmt.setString(1, textResp3.getText());
+                psmt.setInt(2, idPreguntas);
+                psmt.setInt(3, idEncuesta);
+                
+                
+                psmt.execute();
+                System.out.println("sql se inserto respuesta");
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        
+        try{
+            
+                Connection con = Conection.getConexion();
+                String query = "INSERT INTO RespuestaOpcion(TextoRespuesta,fkPreguntas,fkEncuesta) VALUES (?,?,?)";
+                
+                PreparedStatement psmt = con.prepareStatement(query);
+                psmt.setString(1, textResp4.getText());
+                psmt.setInt(2, idPreguntas);
+                psmt.setInt(3, idEncuesta);
+                
+                
+                psmt.execute();
+                System.out.println("sql se inserto respuesta");
+        } catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_guardarPreguntaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,9 +363,9 @@ public class opcionMultiple extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton guardarPregunta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -240,10 +373,10 @@ public class opcionMultiple extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField textPregunta;
+    private javax.swing.JTextField textResp1;
+    private javax.swing.JTextField textResp2;
+    private javax.swing.JTextField textResp3;
+    private javax.swing.JTextField textResp4;
     // End of variables declaration//GEN-END:variables
 }
